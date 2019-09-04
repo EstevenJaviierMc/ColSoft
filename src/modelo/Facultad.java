@@ -5,6 +5,13 @@ public class Facultad {
     private int idFacultad;
     private String nombre;
     private String estado;
+    
+    public Facultad() { }
+
+    public Facultad(String nombre, String estado) {
+        this.nombre = nombre;
+        this.estado = estado;
+    }
 
     public int getIdFacultad() {
         return idFacultad;
