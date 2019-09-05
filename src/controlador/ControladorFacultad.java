@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
-import modelo.ConectarBD;
 import modelo.Facultad;
 
 /**
@@ -25,14 +24,23 @@ public class ControladorFacultad extends ConectarBD{
     public void saveFacultad(Facultad m1) throws SQLException {
         PreparedStatement pstt = null;
         try {
-            pstt = conectar().prepareStatement("insert into facultad values(?,?,?)");
+            pstt = getCon().prepareStatement("insert into facultad values(?,?,?)");
 
             pstt.setString(1, null);
             pstt.setString(2, m1.getNombre());
             pstt.setString(3, m1.getEstado());
 
-            pstt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "La Facultad fue registrada exitosamente!");
+            if ((getFacultad(m1.getNombre())).getNombre()== null) {
+                if (m1.getNombre()!= null) {
+                    pstt.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "La Facultad fue registrada exitosamente!");
+                    System.out.println("La Facultad fue registrada exitosamente!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No deje campos vacios");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "La Facultad que desea registar ya extiste!");
+            }//fin de if
             
         } finally {
             if (pstt != null) {
@@ -44,7 +52,7 @@ public class ControladorFacultad extends ConectarBD{
     public void updateFacultad(Facultad m1) throws SQLException {
         PreparedStatement pstt = null;
         try {
-            pstt = this.conectar().prepareStatement("UPDATE facultad SET idfacultad=?,nombre=?,estado=?");
+            pstt = this.getCon().prepareStatement("UPDATE facultad SET idfacultad=?,nombre=?,estado=?");
             
             pstt.setString(1, m1.getNombre());
             pstt.setString(2, m1.getEstado());
@@ -65,7 +73,7 @@ public class ControladorFacultad extends ConectarBD{
         ResultSet rs = null;
         try {
 
-            pstt = this.conectar().prepareStatement("select * from facultad where idfacultad = ?");
+            pstt = this.getCon().prepareStatement("select * from facultad where idfacultad = ?");
             pstt.setString(1, codigo);
             rs = pstt.executeQuery();
             while (rs.next()) {
@@ -79,7 +87,6 @@ public class ControladorFacultad extends ConectarBD{
                 rs.close();
             }
         }
-        System.out.println(m1.getIdFacultad()+" hola "+ m1.getEstado());
 
         return m1;
     }
@@ -90,7 +97,7 @@ public class ControladorFacultad extends ConectarBD{
         PreparedStatement pstt = null;
         ResultSet rs = null;
         try {
-            pstt = this.conectar().prepareStatement("select * from facultad");
+            pstt = this.getCon().prepareStatement("select * from facultad");
             rs = pstt.executeQuery();
             while (rs.next()) {
                 listaFacultad.add(load(rs));
@@ -119,7 +126,7 @@ public class ControladorFacultad extends ConectarBD{
     public void DeleteFacultad(String codigoFacultad) throws SQLException {
         PreparedStatement pstn = null;
         try {
-            pstn = this.conectar().prepareStatement("DELETE FROM facultad WHERE idfacultad = '"+ codigoFacultad +"'");
+            pstn = this.getCon().prepareStatement("DELETE FROM facultad WHERE idfacultad = '"+ codigoFacultad +"'");
             
             if (pstn.executeUpdate() > 0) {
                 JOptionPane.showMessageDialog(null, "La Facultad fue eliminada exitosamente!");

@@ -3,7 +3,7 @@ package main;
 import controlador.ControladorFacultad;
 import java.sql.SQLException;
 import java.util.Scanner;
-import modelo.ConectarBD;
+import controlador.ConectarBD;
 import modelo.Facultad;
 
 public class Program {
@@ -24,11 +24,15 @@ public class Program {
         ConectarBD cx = new ConectarBD();
         ControladorFacultad fjdbc = new ControladorFacultad();
         try {
-            cx.conectar();
+            cx.conectarme();
+            fjdbc.setCon(cx.getCon());
             fjdbc.saveFacultad(f1);
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+            if(ex.getErrorCode() == 1062) {
+                System.out.println("La facultad que desea ingresar ya Existe!");
+            };
         }
         
         
