@@ -176,16 +176,16 @@ public class ControladorProgramaAcademico extends ConectarBD {
         ResultSet rs=null;
         try {
             if (item == 1) 
-                sql = "SELECT * FROM programaacademico where nombreprograma =?";
+                sql = "SELECT * FROM programaacademico where nombreprograma like ?";
             
 
             if (item == 2) 
-                sql = "SELECT * FROM facultad where nombre =?";
+                sql = "SELECT * FROM facultad where nombre like ?";
             
 
             if (item == 3) 
-                sql = "SELECT * FROM programaacademico where estado=?";
-            
+                sql = "SELECT * FROM programaacademico where estado like ?";
+           
             ps=this.getCon().prepareStatement(sql);
             ps.setString(1, parametro);
             rs=ps.executeQuery();
