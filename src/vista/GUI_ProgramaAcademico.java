@@ -28,6 +28,9 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
     public GUI_ProgramaAcademico() {
         initComponents();
         lNoRe.setVisible(false);
+        lblnombre.setVisible(false);
+        lblfacultad.setVisible(false);
+        lblestado.setVisible(false);
         ConectarBD cn = new ConectarBD();
         try {
             cn.conectarme();
@@ -74,7 +77,6 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
         txtnombre = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtEstado = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaprograma = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
@@ -83,6 +85,10 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         lNoRe = new javax.swing.JLabel();
+        combo_estado = new javax.swing.JComboBox<>();
+        lblnombre = new javax.swing.JLabel();
+        lblfacultad = new javax.swing.JLabel();
+        lblestado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestion de programas academicos");
@@ -144,6 +150,12 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
         jLabel4.setText("Registros");
 
         jLabel5.setText("Id");
+
+        txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnombreKeyTyped(evt);
+            }
+        });
 
         jLabel6.setText("Nombre");
 
@@ -217,6 +229,17 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
 
         lNoRe.setText("No se encontraron Registros");
 
+        combo_estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Activo", "Inactivo" }));
+
+        lblnombre.setForeground(new java.awt.Color(255, 0, 0));
+        lblnombre.setText("Campo Requerido");
+
+        lblfacultad.setForeground(new java.awt.Color(255, 0, 0));
+        lblfacultad.setText("Campo Requerido");
+
+        lblestado.setForeground(new java.awt.Color(255, 0, 0));
+        lblestado.setText("Campo Requerido");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -236,30 +259,36 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
                         .addGap(66, 66, 66))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(74, 74, 74)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lNoRe))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(95, 95, 95))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel7))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblfacultad)
+                                    .addComponent(lblestado)
+                                    .addComponent(lblnombre)
+                                    .addComponent(txtnombre)
+                                    .addComponent(combo_estado, 0, 90, Short.MAX_VALUE)
+                                    .addComponent(txtFacultad))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lNoRe))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addGap(95, 95, 95))))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(83, 83, 83)
-                            .addComponent(jLabel5))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(75, 75, 75)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel7)
-                                .addComponent(jLabel8))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(83, 83, 83)
+                    .addComponent(jLabel5)
+                    .addGap(329, 329, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -285,7 +314,29 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
                         .addComponent(btnNuevo)))
                 .addGap(18, 18, 18)
                 .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(238, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(2, 2, 2)
+                .addComponent(lblnombre)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(lblfacultad)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(lblestado))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(combo_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)))
+                .addGap(44, 44, 44))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,21 +347,8 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
                             .addComponent(btnEliminar))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(295, 295, 295)
-                            .addComponent(jLabel5)
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel7)
-                                .addComponent(txtFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(408, 408, 408)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel8))))
-                    .addContainerGap(109, Short.MAX_VALUE)))
+                            .addComponent(jLabel5)))
+                    .addContainerGap(146, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -337,9 +375,9 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(6, 6, 6))
         );
 
         pack();
@@ -349,7 +387,7 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
 
         if (combobuscar.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione medoto de busqueda");
-        } else {    
+        } else {
 
             try {
                 cn.conectarme();
@@ -378,7 +416,7 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
     public void deshabilitar() {
         txtnombre.setEnabled(false);
         txtFacultad.setEnabled(false);
-        txtEstado.setEnabled(false);
+        combo_estado.setEnabled(false);
 
         btnNuevo.setText("Nuevo");
         btnEliminar.setEnabled(false);
@@ -398,7 +436,7 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
         txtid.setText("");
         txtnombre.setText("");
         txtFacultad.setText("");
-        txtEstado.setText("");
+        combo_estado.setSelectedIndex(0);
     }
     private void combobuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combobuscarActionPerformed
         // TODO add your handling code here:
@@ -413,29 +451,49 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        ProgramaAcademico pro = new ProgramaAcademico();
-        Facultad f = new Facultad();
-        ControladorProgramaAcademico ctrl = new ControladorProgramaAcademico();
-        ConectarBD cn = new ConectarBD();
-        pro.setNombreprograma(txtnombre.getText());
-        f.setIdFacultad(Integer.parseInt(txtFacultad.getText()));
-        pro.setIdfacultad(f);
-        pro.setEstado(txtEstado.getText());
-        pro.setId(Integer.parseInt(txtid.getText()));
-        try {
-            cn.conectarme();
-            ctrl.setCon(cn.getCon());
-            ctrl.modificar(pro, f);
+        if (!txtid.getText().equals("") && !txtnombre.getText().equals("") && !txtFacultad.getText().equals("") && combo_estado.getSelectedIndex() > 0) {
+            ProgramaAcademico pro = new ProgramaAcademico();
+            Facultad f = new Facultad();
+            ControladorProgramaAcademico ctrl = new ControladorProgramaAcademico();
+            ConectarBD cn = new ConectarBD();
+            pro.setNombreprograma(txtnombre.getText());
+            f.setIdFacultad(Integer.parseInt(txtFacultad.getText()));
+            pro.setIdfacultad(f);
+            pro.setEstado(combo_estado.getSelectedItem().toString());
+            pro.setId(Integer.parseInt(txtid.getText()));
+            try {
+                cn.conectarme();
+                ctrl.setCon(cn.getCon());
+                ctrl.modificar(pro, f);
 
-            limpiar();
-            limpiartabla();
-            deshabilitar();
-            mostrarprogramas();
-            JOptionPane.showMessageDialog(this, "REGISTRO ACTUALIZADO EXITOSAMENTE: ", "Gestion de programas academicos", JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "NO SE REALIZÓ LA OPERACION ACTUALIZAR: " + e.toString(), "Gestion de programas academicos", JOptionPane.INFORMATION_MESSAGE);
-            e.printStackTrace();
+                
+                limpiartabla();
+                deshabilitar();
+                mostrarprogramas();
+                JOptionPane.showMessageDialog(this, "REGISTRO ACTUALIZADO EXITOSAMENTE: ", "Gestion de programas academicos", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "NO SE REALIZÓ LA OPERACION ACTUALIZAR: " + e.toString(), "Gestion de programas academicos", JOptionPane.INFORMATION_MESSAGE);
+                e.printStackTrace();
+            }
         }
+        if (txtnombre.getText().equals("")) {
+            lblnombre.setVisible(true);
+        } else {
+            lblnombre.setVisible(false);
+        }
+
+            if (txtFacultad.getText().equals("")) {
+                lblfacultad.setVisible(true);
+            } else {
+                lblfacultad.setVisible(false);
+            }
+            if (combo_estado.getSelectedIndex() == 0) {
+                lblestado.setVisible(true);
+            } else {
+                lblestado.setVisible(false);
+            }
+            limpiar();
+        
 
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -445,7 +503,7 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
         txtid.setText(tablaprograma.getValueAt(fila, 0).toString());
         txtnombre.setText(tablaprograma.getValueAt(fila, 1).toString());
         txtFacultad.setText(tablaprograma.getValueAt(fila, 2).toString());
-        txtEstado.setText(tablaprograma.getValueAt(fila, 3).toString());
+        combo_estado.setSelectedItem(tablaprograma.getValueAt(fila, 3).toString());
 
     }//GEN-LAST:event_tablaprogramaMouseClicked
 
@@ -469,6 +527,18 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txtnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyTyped
+        char validar = evt.getKeyChar();
+
+        if (Character.isDigit(validar)) {
+
+            getToolkit().beep();
+            evt.consume();
+
+            JOptionPane.showMessageDialog(rootPane, "Ingresar solo letras");
+        }
+    }//GEN-LAST:event_txtnombreKeyTyped
 
     /**
      * @param args the command line arguments
@@ -513,6 +583,7 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
+    private javax.swing.JComboBox<String> combo_estado;
     private javax.swing.JComboBox<String> combobuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -526,9 +597,11 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lNoRe;
+    private javax.swing.JLabel lblestado;
+    private javax.swing.JLabel lblfacultad;
+    private javax.swing.JLabel lblnombre;
     private javax.swing.JTable tablaprograma;
     private javax.swing.JTextField txtBuscar;
-    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtFacultad;
     private javax.swing.JTextField txtid;
     private javax.swing.JTextField txtnombre;
