@@ -189,14 +189,7 @@
     <Component class="javax.swing.JComboBox" name="combFac">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="6">
-            <StringItem index="0" value="Seleccione"/>
-            <StringItem index="1" value="Ingenierias"/>
-            <StringItem index="2" value="Humanidades"/>
-            <StringItem index="3" value="Medicina"/>
-            <StringItem index="4" value="Derecho"/>
-            <StringItem index="5" value=" "/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
       </Properties>
       <AuxValues>

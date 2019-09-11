@@ -5,10 +5,10 @@
  */
 package controlador;
 
-
 import java.sql.*;
-import controlador.ConectarBD;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import modelo.Facultad;
 import modelo.ProgramaAcademico;
 
@@ -20,13 +20,12 @@ public class ControladorProgramaAcademico extends ConectarBD {
 
         PreparedStatement ps = null;
 
-        String query = "INSERT INTO programaacademico (nombrePrograma,idfacultad,estado) VALUES(?,?,?)";
         try {
 
             ps = this.getCon().prepareStatement("INSERT INTO programaacademico VALUES(?,?,?,?)");
             ps.setString(1, null);
             ps.setString(2, pro.getNombreprograma());
-            ps.setInt(3, f.getIdFacultad());
+            ps.setString(3, f.getNombre());
             ps.setString(4, pro.getEstado());
             ps.executeUpdate();
             return true;
@@ -47,11 +46,11 @@ public class ControladorProgramaAcademico extends ConectarBD {
         PreparedStatement ps = null;
         Connection con = getCon();
 
-        String query = "UPDATE programaacademico SET nombrePrograma=?,idfacultad=?,estado=? WHERE idprogramaacademico=?";
+        String query = "UPDATE programaacademico SET nombrePrograma=?,facultad=?,estado=? WHERE idprogramaacademico=?";
         try {
             ps = con.prepareStatement(query);
             ps.setString(1, pro.getNombreprograma());
-            ps.setInt(2, f.getIdFacultad());
+            ps.setString(2, f.getNombre());
             ps.setString(3, pro.getEstado());
             ps.setInt(4, pro.getId());
             ps.execute();
@@ -96,46 +95,12 @@ public class ControladorProgramaAcademico extends ConectarBD {
 
     }
 
-    public boolean buscar(ProgramaAcademico pro, Facultad f) {
-
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        Connection con = getCon();
-
-        String query = "SELECT * FROM programaacademico WHERE nombrePrograma=?";
-        try {
-            ps = con.prepareStatement(query);
-            ps.setString(1, pro.getNombreprograma());
-
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                pro.setId(Integer.parseInt(rs.getString("id")));
-                pro.setNombreprograma((rs.getString("Nombre_Programa")));
-                f.setIdFacultad(Integer.parseInt(rs.getString("IdFacultad")));
-                pro.setEstado(rs.getString("Estado"));
-                return true;
-            }
-            return false;
-
-        } catch (SQLException e) {
-            System.err.println(e);
-            return false;
-        } finally {
-            try {
-                con.close();
-            } catch (SQLException e) {
-                System.err.println(e);
-            }
-        }
-
-    }
-
     private ProgramaAcademico load(ResultSet et) throws SQLException {
         ProgramaAcademico pro = new ProgramaAcademico();
         Facultad f = new Facultad();
         pro.setId(et.getInt(1));
         pro.setNombreprograma(et.getString(2));
-        f.setIdFacultad(et.getInt(3));
+        f.setNombre(et.getString(3));
         pro.setIdfacultad(f);
         pro.setEstado(et.getString(4));
 
@@ -172,32 +137,31 @@ public class ControladorProgramaAcademico extends ConectarBD {
     public ArrayList<ProgramaAcademico> buscarprograma(int item, String parametro) throws SQLException {
         ArrayList<ProgramaAcademico> listabusqueda = new ArrayList<ProgramaAcademico>();
         String sql = "";
-        PreparedStatement ps=null;
-        ResultSet rs=null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
-            if (item == 1) 
+            if (item == 1) {
                 sql = "SELECT * FROM programaacademico where nombreprograma like ?";
-            
-
-            if (item == 2) 
-                sql = "SELECT * FROM facultad where nombre like ?";
-            
-
-            if (item == 3) 
-                sql = "SELECT * FROM programaacademico where estado like ?";
-           
-            ps=this.getCon().prepareStatement(sql);
-            ps.setString(1, parametro);
-            rs=ps.executeQuery();
-            while(rs.next()){
-            listabusqueda.add(load(rs));
             }
-            
-            
+
+            if (item == 2) {
+                sql = "SELECT * FROM programaacademico where facultad like ?";
+            }
+
+            if (item == 3) {
+                sql = "SELECT * FROM programaacademico where estado like ?";
+            }
+
+            ps = this.getCon().prepareStatement(sql);
+            ps.setString(1, parametro);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listabusqueda.add(load(rs));
+            }
 
         } catch (SQLException e) {
-           throw new SQLException("Error en la busqueda del registro: "+e.toString());
-           
+            throw new SQLException("Error en la busqueda del registro: " + e.toString());
+
         } finally {
             if (rs != null) {
                 rs.close();
@@ -209,6 +173,32 @@ public class ControladorProgramaAcademico extends ConectarBD {
         }
         return listabusqueda;
 
+    }
+
+    public void cargarfacultad(JComboBox combo_facultad) throws SQLException {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "SELECT nombre FROM facultad ORDER BY nombre ASC";
+
+        try {
+            ps = this.getCon().prepareStatement(sql);
+            rs = ps.executeQuery();
+            combo_facultad.addItem("Seleccione una opcion");
+            while (rs.next()) {
+                combo_facultad.addItem(rs.getString("nombre"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+
+        }
     }
 
 }

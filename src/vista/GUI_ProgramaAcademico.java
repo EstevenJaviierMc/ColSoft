@@ -47,11 +47,11 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
         for (int i = 0; i < ctrl.listarprogramas().size(); i++) {
             matriz[i][0] = String.valueOf(ctrl.listarprogramas().get(i).getId());
             matriz[i][1] = ctrl.listarprogramas().get(i).getNombreprograma();
-            matriz[i][2] = String.valueOf(ctrl.listarprogramas().get(i).getIdfacultad().getIdFacultad());
+            matriz[i][2] = ctrl.listarprogramas().get(i).getIdfacultad().getNombre();
             matriz[i][3] = ctrl.listarprogramas().get(i).getEstado();
 
         }
-        tablaprograma.setModel(new javax.swing.table.DefaultTableModel(matriz, new String[]{"Id", "Nombre", "IdFacultad", "Estado"}));
+        tablaprograma.setModel(new javax.swing.table.DefaultTableModel(matriz, new String[]{"Id", "Nombre", "Facultad", "Estado"}));
     }
 
     /**
@@ -457,7 +457,7 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
             ControladorProgramaAcademico ctrl = new ControladorProgramaAcademico();
             ConectarBD cn = new ConectarBD();
             pro.setNombreprograma(txtnombre.getText());
-            f.setIdFacultad(Integer.parseInt(txtFacultad.getText()));
+            f.setNombre(txtFacultad.getText());
             pro.setIdfacultad(f);
             pro.setEstado(combo_estado.getSelectedItem().toString());
             pro.setId(Integer.parseInt(txtid.getText()));
@@ -468,7 +468,7 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
 
                 
                 limpiartabla();
-                deshabilitar();
+                
                 mostrarprogramas();
                 JOptionPane.showMessageDialog(this, "REGISTRO ACTUALIZADO EXITOSAMENTE: ", "Gestion de programas academicos", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException e) {

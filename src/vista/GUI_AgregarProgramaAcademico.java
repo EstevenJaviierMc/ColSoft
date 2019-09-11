@@ -9,6 +9,8 @@ import controlador.ControladorProgramaAcademico;
 import javax.swing.*;
 import controlador.ConectarBD;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Facultad;
 import modelo.ProgramaAcademico;
 
@@ -18,15 +20,21 @@ import modelo.ProgramaAcademico;
  */
 public class GUI_AgregarProgramaAcademico extends javax.swing.JFrame {
 
-    /**
-     * Creates new form GUI_AgregarProgramaAcademico
-     */
+    ControladorProgramaAcademico ctrl = new ControladorProgramaAcademico();
+    ConectarBD cn=new ConectarBD();
     public GUI_AgregarProgramaAcademico() {
         initComponents();
 
         lCod.setVisible(false);
         lNom.setVisible(false);
         lFac.setVisible(false);
+        try {
+            cn.conectarme();
+            ctrl.setCon(cn.getCon());
+            ctrl.cargarfacultad(combFac);
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI_AgregarProgramaAcademico.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -83,8 +91,6 @@ public class GUI_AgregarProgramaAcademico extends javax.swing.JFrame {
 
         jLabel8.setForeground(new java.awt.Color(255, 0, 0));
         jLabel8.setText("*");
-
-        combFac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Ingenierias", "Humanidades", "Medicina", "Derecho", " " }));
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -197,15 +203,16 @@ public class GUI_AgregarProgramaAcademico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
+        ConectarBD cn = new ConectarBD();
+        
         if (!txtNombre.getText().equals("") && combo_estado.getSelectedIndex() > 0 && combFac.getSelectedIndex() > 0) {
             ProgramaAcademico pro = new ProgramaAcademico();
             Facultad f = new Facultad();
             pro.setNombreprograma(txtNombre.getText());
-            f.setIdFacultad(combFac.getSelectedIndex());
+            f.setNombre(combFac.getSelectedItem().toString());
             pro.setIdfacultad(f);
             pro.setEstado(combo_estado.getSelectedItem().toString());
             ControladorProgramaAcademico ctrl = new ControladorProgramaAcademico();
-            ConectarBD cn = new ConectarBD();
 
             try {
                 cn.conectarme();
@@ -213,15 +220,12 @@ public class GUI_AgregarProgramaAcademico extends javax.swing.JFrame {
                 ctrl.registrar(pro, f);
                 JOptionPane.showMessageDialog(null, "REGISTRADO EXITOSAMENTE");
 
-               
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e);
             }
-            
 
         }
-        
-        
+
         if (txtNombre.getText().equals("")) {
 
             lNom.setVisible(true);
