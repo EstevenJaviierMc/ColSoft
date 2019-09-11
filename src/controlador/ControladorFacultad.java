@@ -52,10 +52,11 @@ public class ControladorFacultad extends ConectarBD{
     public void modificarFacultad(Facultad m1) throws SQLException {
         PreparedStatement pstt = null;
         try {
-            pstt = this.getCon().prepareStatement("UPDATE facultad SET idfacultad=?,nombre=?,estado=?");
+            pstt = this.getCon().prepareStatement("UPDATE facultad SET nombre=?,estado=? WHERE idfacultad=?");
             
             pstt.setString(1, m1.getNombre());
             pstt.setString(2, m1.getEstado());
+            pstt.setInt(3, m1.getIdFacultad());
 
             pstt.executeUpdate();
             JOptionPane.showMessageDialog(null, "La Facultad fue actualizada exitosamente!");
