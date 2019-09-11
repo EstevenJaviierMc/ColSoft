@@ -21,7 +21,7 @@ public class ControladorFacultad extends ConectarBD{
     private List listaFacultad;
     ConectarBD cone = new ConectarBD();
 
-    public void saveFacultad(Facultad m1) throws SQLException {
+    public void grabarFacultad(Facultad m1) throws SQLException {
         PreparedStatement pstt = null;
         try {
             pstt = getCon().prepareStatement("insert into facultad values(?,?,?)");
@@ -30,7 +30,7 @@ public class ControladorFacultad extends ConectarBD{
             pstt.setString(2, m1.getNombre());
             pstt.setString(3, m1.getEstado());
 
-            if ((getFacultad(m1.getNombre())).getNombre()== null) {
+            if ((obtenerFacultad(m1.getNombre())).getNombre()== null) {
                 if (m1.getNombre()!= null) {
                     pstt.executeUpdate();
                     JOptionPane.showMessageDialog(null, "La Facultad fue registrada exitosamente!");
@@ -49,7 +49,7 @@ public class ControladorFacultad extends ConectarBD{
         }
     }
 
-    public void updateFacultad(Facultad m1) throws SQLException {
+    public void modificarFacultad(Facultad m1) throws SQLException {
         PreparedStatement pstt = null;
         try {
             pstt = this.getCon().prepareStatement("UPDATE facultad SET idfacultad=?,nombre=?,estado=?");
@@ -66,7 +66,7 @@ public class ControladorFacultad extends ConectarBD{
         }
     }
 
-    public Facultad getFacultad(String codigo) throws SQLException {
+    public Facultad obtenerFacultad(String codigo) throws SQLException {
 
         Facultad m1 = new Facultad();
         PreparedStatement pstt = null;
@@ -91,7 +91,7 @@ public class ControladorFacultad extends ConectarBD{
         return m1;
     }
 
-    public List getFacultad() throws SQLException {
+    public List obtenerFacultades() throws SQLException {
 
         listaFacultad = new LinkedList();
         PreparedStatement pstt = null;
@@ -123,7 +123,7 @@ public class ControladorFacultad extends ConectarBD{
         return rcu;
     }
 
-    public void DeleteFacultad(String codigoFacultad) throws SQLException {
+    public void EliminarFacultad(String codigoFacultad) throws SQLException {
         PreparedStatement pstn = null;
         try {
             pstn = this.getCon().prepareStatement("DELETE FROM facultad WHERE idfacultad = '"+ codigoFacultad +"'");
