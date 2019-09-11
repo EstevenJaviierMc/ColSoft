@@ -23,6 +23,7 @@ import modelo.ProgramaAcademico;
 public class GUI_ProgramaAcademico extends javax.swing.JFrame {
 
     ControladorProgramaAcademico ctrl = new ControladorProgramaAcademico();
+    ConectarBD cn = new ConectarBD();
 
     public GUI_ProgramaAcademico() {
         initComponents();
@@ -345,59 +346,59 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        
-        if(combobuscar.getSelectedIndex()==0){
-        JOptionPane.showMessageDialog(null, "Seleccione medoto de busqueda");
-        } else{
-        ControladorProgramaAcademico ctrl = new ControladorProgramaAcademico();
-        ConectarBD cn = new ConectarBD();
-        int valor=combobuscar.getSelectedIndex();
-        String Parametro=txtBuscar.getText();
-        
-        try{
-        cn.conectarme();
-        ctrl.setCon(cn.getCon());
-        ArrayList<ProgramaAcademico> lista= ctrl.buscarprogramas(combobuscar.getSelectedIndex(),txtBuscar.getText().trim());
-        String matriz[][] = new String[lista.size()][4];
-        for (int i = 0; i < lista.size(); i++) {
-            matriz[i][0] = String.valueOf(lista.get(i).getId());
-            matriz[i][1] = lista.get(i).getNombreprograma();
-            matriz[i][2] = String.valueOf(lista.get(i).getIdfacultad().getIdFacultad());
-            matriz[i][3] = lista.get(i).getEstado();
 
+        if (combobuscar.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione medoto de busqueda");
+        } else {    
+
+            try {
+                cn.conectarme();
+                ctrl.setCon(cn.getCon());
+                ArrayList<ProgramaAcademico> lista = ctrl.buscarprograma(combobuscar.getSelectedIndex(), txtBuscar.getText().trim());
+                String matriz[][] = new String[lista.size()][4];
+                for (int i = 0; i < lista.size(); i++) {
+                    matriz[i][0] = String.valueOf(lista.get(i).getId());
+                    matriz[i][1] = lista.get(i).getNombreprograma();
+                    matriz[i][2] = String.valueOf(lista.get(i).getIdfacultad().getIdFacultad());
+                    matriz[i][3] = lista.get(i).getEstado();
+
+                }
+                tablaprograma.setModel(new javax.swing.table.DefaultTableModel(matriz, new String[]{"Id", "Nombre", "Facultad", "Estado"}));
+
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
         }
-        tablaprograma.setModel(new javax.swing.table.DefaultTableModel(matriz, new String[]{"Id", "Nombre", "Facultad", "Estado"}));
-        
-        }catch(SQLException e){
-            System.out.println(e);
-        }}
     }//GEN-LAST:event_btnBuscarActionPerformed
-    public void habilitar(){
-    btnModificar.setEnabled(true);
-    btnEliminar.setEnabled(true);
+    public void habilitar() {
+        btnModificar.setEnabled(true);
+        btnEliminar.setEnabled(true);
     }
-    public void deshabilitar(){
-    txtnombre.setEnabled(false);
-    txtFacultad.setEnabled(false);
-    txtEstado.setEnabled(false);
-    
-    btnNuevo.setText("Nuevo");
-    btnEliminar.setEnabled(false);
-    btnModificar.setEnabled(false);
-    
+
+    public void deshabilitar() {
+        txtnombre.setEnabled(false);
+        txtFacultad.setEnabled(false);
+        txtEstado.setEnabled(false);
+
+        btnNuevo.setText("Nuevo");
+        btnEliminar.setEnabled(false);
+        btnModificar.setEnabled(false);
+
     }
-    public void limpiartabla(){
-    DefaultTableModel df =(DefaultTableModel) tablaprograma.getModel();
-    int a=tablaprograma.getRowCount()-1;
-        for (int i = a; i >=0; i--) {
-            df.removeRow(df.getRowCount()-1);
+
+    public void limpiartabla() {
+        DefaultTableModel df = (DefaultTableModel) tablaprograma.getModel();
+        int a = tablaprograma.getRowCount() - 1;
+        for (int i = a; i >= 0; i--) {
+            df.removeRow(df.getRowCount() - 1);
         }
     }
-    public void limpiar(){
-    txtid.setText("");
-    txtnombre.setText("");
-    txtFacultad.setText("");
-    txtEstado.setText("");
+
+    public void limpiar() {
+        txtid.setText("");
+        txtnombre.setText("");
+        txtFacultad.setText("");
+        txtEstado.setText("");
     }
     private void combobuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combobuscarActionPerformed
         // TODO add your handling code here:
@@ -412,46 +413,46 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-       ProgramaAcademico pro=new ProgramaAcademico();
-       Facultad f=new Facultad();
-       ControladorProgramaAcademico ctrl=new ControladorProgramaAcademico();
-       ConectarBD cn=new ConectarBD();
-       pro.setNombreprograma(txtnombre.getText());
-       f.setIdFacultad(Integer.parseInt(txtFacultad.getText()));
-       pro.setIdfacultad(f);
-       pro.setEstado(txtEstado.getText());
-       pro.setId(Integer.parseInt(txtid.getText()));
-       try{
+        ProgramaAcademico pro = new ProgramaAcademico();
+        Facultad f = new Facultad();
+        ControladorProgramaAcademico ctrl = new ControladorProgramaAcademico();
+        ConectarBD cn = new ConectarBD();
+        pro.setNombreprograma(txtnombre.getText());
+        f.setIdFacultad(Integer.parseInt(txtFacultad.getText()));
+        pro.setIdfacultad(f);
+        pro.setEstado(txtEstado.getText());
+        pro.setId(Integer.parseInt(txtid.getText()));
+        try {
             cn.conectarme();
             ctrl.setCon(cn.getCon());
             ctrl.modificar(pro, f);
-            
+
             limpiar();
             limpiartabla();
             deshabilitar();
             mostrarprogramas();
-            JOptionPane.showMessageDialog(this, "REGISTRO ACTUALIZADO EXITOSAMENTE: ", "Gestion de programas academicos",JOptionPane.INFORMATION_MESSAGE);   
-        }catch(SQLException e){
-        JOptionPane.showMessageDialog(this, "NO SE REALIZÓ LA OPERACION ACTUALIZAR: "+e.toString(),"Gestion de programas academicos",JOptionPane.INFORMATION_MESSAGE);
-        e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "REGISTRO ACTUALIZADO EXITOSAMENTE: ", "Gestion de programas academicos", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "NO SE REALIZÓ LA OPERACION ACTUALIZAR: " + e.toString(), "Gestion de programas academicos", JOptionPane.INFORMATION_MESSAGE);
+            e.printStackTrace();
         }
 
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void tablaprogramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaprogramaMouseClicked
         // TODO add your handling code here:
-        int fila=tablaprograma.getSelectedRow();
+        int fila = tablaprograma.getSelectedRow();
         txtid.setText(tablaprograma.getValueAt(fila, 0).toString());
         txtnombre.setText(tablaprograma.getValueAt(fila, 1).toString());
         txtFacultad.setText(tablaprograma.getValueAt(fila, 2).toString());
         txtEstado.setText(tablaprograma.getValueAt(fila, 3).toString());
-        
+
     }//GEN-LAST:event_tablaprogramaMouseClicked
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        ProgramaAcademico pro=new ProgramaAcademico();
-        ControladorProgramaAcademico ctrl=new ControladorProgramaAcademico();
-        ConectarBD cn=new ConectarBD();
+        ProgramaAcademico pro = new ProgramaAcademico();
+        ControladorProgramaAcademico ctrl = new ControladorProgramaAcademico();
+        ConectarBD cn = new ConectarBD();
         pro.setId(Integer.parseInt(txtid.getText()));
         try {
             cn.conectarme();
@@ -461,12 +462,12 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
             limpiartabla();
             deshabilitar();
             mostrarprogramas();
-            JOptionPane.showMessageDialog(this, "REGISTRO ELIMINADO EXITOSAMENTE: ", "Gestion de programas academicos",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "REGISTRO ELIMINADO EXITOSAMENTE: ", "Gestion de programas academicos", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
-           JOptionPane.showMessageDialog(this, "NO SE REALIZÓ LA OPERACION ELIMINAR: "+ex.toString(),"Gestion de programas academicos",JOptionPane.INFORMATION_MESSAGE);
-        ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "NO SE REALIZÓ LA OPERACION ELIMINAR: " + ex.toString(), "Gestion de programas academicos", JOptionPane.INFORMATION_MESSAGE);
+            ex.printStackTrace();
         }
-            
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**

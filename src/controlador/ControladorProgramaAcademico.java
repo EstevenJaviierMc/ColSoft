@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package controlador;
-import com.mysql.cj.protocol.Resultset;
+
+
 import java.sql.*;
 import controlador.ConectarBD;
 import java.util.ArrayList;
@@ -15,13 +16,11 @@ public class ControladorProgramaAcademico extends ConectarBD {
 
     ConectarBD cone = new ConectarBD();
 
-   
-
     public boolean registrar(ProgramaAcademico pro, Facultad f) throws SQLException {
 
         PreparedStatement ps = null;
 
-        String query = "INSERT INTO programaacademico (nombrePrograma,idFacultad,estado) VALUES(?,?,?)";
+        String query = "INSERT INTO programaacademico (nombrePrograma,idfacultad,estado) VALUES(?,?,?)";
         try {
 
             ps = this.getCon().prepareStatement("INSERT INTO programaacademico VALUES(?,?,?,?)");
@@ -80,7 +79,6 @@ public class ControladorProgramaAcademico extends ConectarBD {
         try {
             ps = con.prepareStatement(query);
             ps.setInt(1, pro.getId());
-            
 
             ps.execute();
             return true;
@@ -143,70 +141,74 @@ public class ControladorProgramaAcademico extends ConectarBD {
 
         return pro;
     }
-    
-    public ArrayList<ProgramaAcademico> listarprogramas() throws SQLException{
-    
-        ResultSet rs=null;
-        PreparedStatement ps=null;
-        ArrayList<ProgramaAcademico> lista=new ArrayList<ProgramaAcademico>();
-        try{
+
+    public ArrayList<ProgramaAcademico> listarprogramas() throws SQLException {
+
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        ArrayList<ProgramaAcademico> lista = new ArrayList<ProgramaAcademico>();
+        try {
             ps = this.getCon().prepareStatement("SELECT * FROM programaacademico");
-            rs=ps.executeQuery();
-            while(rs.next()){
-            lista.add(load(rs));
-            
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                lista.add(load(rs));
+
             }
-        
-        }catch(SQLException Ignore){
-        
-        } finally{
-            if(rs!=null){
-            rs.close();
+
+        } catch (SQLException Ignore) {
+
+        } finally {
+            if (rs != null) {
+                rs.close();
             }
-            if(ps!=null){
-            ps.close();
+            if (ps != null) {
+                ps.close();
             }
-        
+
         }
         return lista;
     }
-    public ArrayList<ProgramaAcademico> buscarprogramas(int item,String Parametro) throws SQLException{
-    
-        ResultSet rs=null;
+
+    public ArrayList<ProgramaAcademico> buscarprograma(int item, String parametro) throws SQLException {
+        ArrayList<ProgramaAcademico> listabusqueda = new ArrayList<ProgramaAcademico>();
+        String sql = "";
         PreparedStatement ps=null;
-        ArrayList<ProgramaAcademico> lista=new ArrayList<ProgramaAcademico>();
-        String sql="";
-                
-        try{
-            if(item==1){
-            sql="SELECT FROM programaacademico WHERE nombreprograma=?";
-            }
-            if(item==2){
-            sql="SELECT FORM facultad WHERE nombre=?";
-            }
-            if(item==3){
-            sql="SELECT FROM programaacademico WHERE estado=?";
-            }
-            ps = this.getCon().prepareStatement(sql);
-            ps.setString(1, Parametro);
+        ResultSet rs=null;
+        try {
+            if (item == 1) 
+                sql = "SELECT * FROM programaacademico where nombreprograma =?";
+            
+
+            if (item == 2) 
+                sql = "SELECT * FROM facultad where nombre =?";
+            
+
+            if (item == 3) 
+                sql = "SELECT * FROM programaacademico where estado=?";
+            
+            ps=this.getCon().prepareStatement(sql);
+            ps.setString(1, parametro);
             rs=ps.executeQuery();
             while(rs.next()){
-            lista.add(load(rs));
+            listabusqueda.add(load(rs));
+            }
             
+            
+
+        } catch (SQLException e) {
+           throw new SQLException("Error en la busqueda del registro: "+e.toString());
+           
+        } finally {
+            if (rs != null) {
+                rs.close();
             }
-        
-        }catch(SQLException Ignore){
-        
-        } finally{
-            if(rs!=null){
-            rs.close();
+            if (ps != null) {
+                ps.close();
             }
-            if(ps!=null){
-            ps.close();
-            }
-        
+
         }
-        return lista;
+        return listabusqueda;
+
     }
 
 }

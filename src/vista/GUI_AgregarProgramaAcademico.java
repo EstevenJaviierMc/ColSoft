@@ -4,12 +4,14 @@
  * and open the template in the editor.
  */
 package vista;
+
 import controlador.ControladorProgramaAcademico;
 import javax.swing.*;
 import controlador.ConectarBD;
 import java.sql.SQLException;
 import modelo.Facultad;
 import modelo.ProgramaAcademico;
+
 /**
  *
  * @author RAFAEL CARO
@@ -21,7 +23,7 @@ public class GUI_AgregarProgramaAcademico extends javax.swing.JFrame {
      */
     public GUI_AgregarProgramaAcademico() {
         initComponents();
-        
+
         lCod.setVisible(false);
         lNom.setVisible(false);
         lFac.setVisible(false);
@@ -195,80 +197,84 @@ public class GUI_AgregarProgramaAcademico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
-        if(!txtNombre.getText().equals("") && combo_estado.getSelectedIndex()>0 && combFac.getSelectedIndex()>0){
-        ProgramaAcademico pro=new ProgramaAcademico();
-        Facultad f=new Facultad();
-        pro.setNombreprograma(txtNombre.getText());
-        f.setIdFacultad(combFac.getSelectedIndex());
-        pro.setIdfacultad(f);
-        pro.setEstado(combo_estado.getSelectedItem().toString());
-        ControladorProgramaAcademico ctrl=new ControladorProgramaAcademico();
-        ConectarBD cn=new ConectarBD();
-        
-        try{
-            cn.conectarme();
-            ctrl.setCon(cn.getCon());
-            ctrl.registrar(pro, f);
-            JOptionPane.showMessageDialog(null, "REGISTRADO EXITOSAMENTE");
-            limpiar();
-        }catch(SQLException e){
-        JOptionPane.showMessageDialog(null, e);
-        }
-        
-        
-        }
-        if (txtNombre.getText().equals("")) {
+        if (!txtNombre.getText().equals("") && combo_estado.getSelectedIndex() > 0 && combFac.getSelectedIndex() > 0) {
+            ProgramaAcademico pro = new ProgramaAcademico();
+            Facultad f = new Facultad();
+            pro.setNombreprograma(txtNombre.getText());
+            f.setIdFacultad(combFac.getSelectedIndex());
+            pro.setIdfacultad(f);
+            pro.setEstado(combo_estado.getSelectedItem().toString());
+            ControladorProgramaAcademico ctrl = new ControladorProgramaAcademico();
+            ConectarBD cn = new ConectarBD();
+
+            try {
+                cn.conectarme();
+                ctrl.setCon(cn.getCon());
+                ctrl.registrar(pro, f);
+                JOptionPane.showMessageDialog(null, "REGISTRADO EXITOSAMENTE");
+
+               
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
             
-            lNom.setVisible(true);
-           
-        }else  {
+
+        }
         
+        
+        if (txtNombre.getText().equals("")) {
+
+            lNom.setVisible(true);
+
+        } else {
+
             lNom.setVisible(false);
         }
-        if (combo_estado.getSelectedIndex()==0) {
-            
+        if (combo_estado.getSelectedIndex() == 0) {
+
             lCod.setVisible(true);
-            
-        }else{
-        
+
+        } else {
+
             lCod.setVisible(false);
-            
+
         }
-        if (combFac.getSelectedIndex()==0) {
-            
+        if (combFac.getSelectedIndex() == 0) {
+
             lFac.setVisible(true);
-            
-        }else{
-        
+
+        } else {
+
             lFac.setVisible(false);
-            
+
         }
-        
-        
+        limpiar();
+
+
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-        
+
         char validar = evt.getKeyChar();
-        
+
         if (Character.isDigit(validar)) {
-            
+
             getToolkit().beep();
             evt.consume();
-            
+
             JOptionPane.showMessageDialog(rootPane, "Ingresar solo letras");
         }
-        
+
     }//GEN-LAST:event_txtNombreKeyTyped
 
-    public void limpiar(){
-    txtNombre.setText("");
-    combo_estado.setSelectedIndex(0);
-    combFac.setSelectedIndex(0);
+    public void limpiar() {
+        txtNombre.setText("");
+        combo_estado.setSelectedIndex(0);
+        combFac.setSelectedIndex(0);
     }
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
-        GUI_ProgramaAcademico pro=new GUI_ProgramaAcademico();
+        GUI_ProgramaAcademico pro = new GUI_ProgramaAcademico();
         pro.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
