@@ -105,34 +105,34 @@ public class Program {
 
     }
 
-    public static void main(String[] args) {
-        guardarFacultad ();
-        System.out.println("");
-     
-        obtenerFacultades();
-        System.out.println("");
-
-        Scanner leer = new Scanner(System.in);
-        System.out.print("Ingrese el numero de facultad que quiere obtener: ");
-        String num = leer.next();
-        Facultad f1 = obtenerFacultad(num);
-        System.out.println("");        
-        
-        System.out.print("Ingrese el nuevo nombre para la facultad: ");
-        f1.setNombre(leer.next());
-        
-        System.out.print("Ingrese el nuevo estado para la facultad: ");
-        f1.setEstado(leer.next());
-        actualizarFacultad(f1);
-        System.out.println("");
-        
-        obtenerFacultades();
-        System.out.println("");
-
-        System.out.print("Ingrese el numero de facultad que quiere eliminar: ");
-        num = leer.next();
-        eliminarFacultad(num);
-
-    }
+//    public static void main(String[] args) {
+//        guardarFacultad ();
+//        System.out.println("");
+//     
+//        obtenerFacultades();
+//        System.out.println("");
+//
+//        Scanner leer = new Scanner(System.in);
+//        System.out.print("Ingrese el numero de facultad que quiere obtener: ");
+//        String num = leer.next();
+//        Facultad f1 = obtenerFacultad(num);
+//        System.out.println("");        
+//        
+//        System.out.print("Ingrese el nuevo nombre para la facultad: ");
+//        f1.setNombre(leer.next());
+//        
+//        System.out.print("Ingrese el nuevo estado para la facultad: ");
+//        f1.setEstado(leer.next());
+//        actualizarFacultad(f1);
+//        System.out.println("");
+//        
+//        obtenerFacultades();
+//        System.out.println("");
+//
+//        System.out.print("Ingrese el numero de facultad que quiere eliminar: ");
+//        num = leer.next();
+//        eliminarFacultad(num);
+//
+//    }
 
 }
