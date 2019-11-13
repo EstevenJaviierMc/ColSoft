@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 5.7.27, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: colsoft
 -- ------------------------------------------------------
--- Server version	5.7.27-0ubuntu0.16.04.1
+-- Server version	5.6.45-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,7 +21,7 @@
 
 DROP TABLE IF EXISTS `colegio`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `colegio` (
   `idcolegio` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
@@ -47,7 +47,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `facultad`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `facultad` (
   `idfacultad` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
@@ -71,7 +71,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `jornada`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `jornada` (
   `idjornada` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
@@ -95,7 +95,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `nivelformacion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `nivelformacion` (
   `idnivelformacion` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
@@ -119,7 +119,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `persona`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `persona` (
   `idpersona` int(11) NOT NULL AUTO_INCREMENT,
   `tipodocumento` varchar(45) NOT NULL,
@@ -149,7 +149,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `preinscripcion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `preinscripcion` (
   `idpreinscripcion` int(11) NOT NULL AUTO_INCREMENT,
   `idnivelformacion` int(11) NOT NULL,
@@ -178,14 +178,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `programaacademico`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `programaacademico` (
   `idprogramaacademico` int(11) NOT NULL AUTO_INCREMENT,
+  `Codigo` varchar(45) NOT NULL,
   `nombreprograma` varchar(45) NOT NULL,
   `idfacultad` int(11) NOT NULL,
   `estado` varchar(45) NOT NULL,
   PRIMARY KEY (`idprogramaacademico`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,6 +195,7 @@ CREATE TABLE `programaacademico` (
 
 LOCK TABLES `programaacademico` WRITE;
 /*!40000 ALTER TABLE `programaacademico` DISABLE KEYS */;
+INSERT INTO `programaacademico` VALUES (1,'P001','Sistemas',3,'Activo'),(3,'P003','Rafa',2,'Inactivo');
 /*!40000 ALTER TABLE `programaacademico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,7 +205,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuario` (
   `idusuario` int(11) NOT NULL AUTO_INCREMENT,
   `nombreusuario` varchar(45) NOT NULL,
@@ -233,4 +235,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-02 22:29:05
+-- Dump completed on 2019-11-13  9:47:38

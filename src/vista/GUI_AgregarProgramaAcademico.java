@@ -4,12 +4,14 @@
  * and open the template in the editor.
  */
 package vista;
+
 import controlador.ControladorProgramaAcademico;
 import javax.swing.*;
 import controlador.ConectarBD;
 import java.sql.SQLException;
 import modelo.Facultad;
 import modelo.ProgramaAcademico;
+
 /**
  *
  * @author RAFAEL CARO
@@ -25,6 +27,7 @@ public class GUI_AgregarProgramaAcademico extends javax.swing.JFrame {
         lCod.setVisible(false);
         lNom.setVisible(false);
         lFac.setVisible(false);
+        lblcodigo.setVisible(false);
     }
 
     /**
@@ -52,14 +55,18 @@ public class GUI_AgregarProgramaAcademico extends javax.swing.JFrame {
         lNom = new javax.swing.JLabel();
         lFac = new javax.swing.JLabel();
         combo_estado = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        txtcodigo = new javax.swing.JTextField();
+        lblcodigo = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setText("PROGRAMAS ACADEMICO");
+        jLabel1.setText("PROGRAMAS ACADEMICOS");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Agregar Facultad Academica");
+        jLabel2.setText("Agregar Programas Academicos");
 
         jLabel3.setText("Estado");
 
@@ -109,6 +116,14 @@ public class GUI_AgregarProgramaAcademico extends javax.swing.JFrame {
 
         combo_estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Activo ", "Inactivo", " " }));
 
+        jLabel9.setText("Codigo");
+
+        lblcodigo.setForeground(new java.awt.Color(255, 0, 0));
+        lblcodigo.setText("Campo requerido");
+
+        jLabel11.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel11.setText("*");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,29 +149,41 @@ public class GUI_AgregarProgramaAcademico extends javax.swing.JFrame {
                                 .addComponent(jLabel6)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lCod)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(btnSalir)
-                                        .addGap(33, 33, 33))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(btnSalir)
+                                            .addGap(33, 33, 33))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(lNom))
+                                            .addGap(40, 40, 40)))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lNom))
+                                        .addComponent(combo_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(40, 40, 40)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnGrabar)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel8)
-                                        .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lFac)
-                                            .addComponent(combFac, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addComponent(lCod)
-                            .addComponent(combo_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(68, Short.MAX_VALUE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel7)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel8))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel9)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblcodigo)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(lFac)
+                                                .addComponent(combFac, 0, 110, Short.MAX_VALUE)
+                                                .addComponent(txtcodigo)))))))))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,9 +196,14 @@ public class GUI_AgregarProgramaAcademico extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(combo_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(combo_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
                 .addGap(4, 4, 4)
-                .addComponent(lCod)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCod)
+                    .addComponent(lblcodigo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -195,56 +227,61 @@ public class GUI_AgregarProgramaAcademico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
-        if(!txtNombre.getText().equals("") && combo_estado.getSelectedIndex()>0 && combFac.getSelectedIndex()>0){
-        ProgramaAcademico pro=new ProgramaAcademico();
-        Facultad f=new Facultad();
-        pro.setNombreprograma(txtNombre.getText());
-        f.setIdFacultad(combFac.getSelectedIndex());
-        pro.setIdfacultad(f);
-        pro.setEstado(combo_estado.getSelectedItem().toString());
-        ControladorProgramaAcademico ctrl=new ControladorProgramaAcademico();
-        ConectarBD cn=new ConectarBD();
-        
-        try{
-            cn.conectarme();
-            ctrl.setCon(cn.getCon());
-            ctrl.registrar(pro, f);
-            JOptionPane.showMessageDialog(null, "REGISTRADO EXITOSAMENTE");
-            limpiar();
-        }catch(SQLException e){
-        JOptionPane.showMessageDialog(null, e);
-        }
-        
-        
+        if (!txtNombre.getText().equals("") && combo_estado.getSelectedIndex() > 0 && combFac.getSelectedIndex() > 0) {
+            ProgramaAcademico pro = new ProgramaAcademico();
+            Facultad f = new Facultad();
+            pro.setNombreprograma(txtNombre.getText());
+            f.setIdFacultad(combFac.getSelectedIndex());
+            pro.setIdfacultad(f);
+            pro.setEstado(combo_estado.getSelectedItem().toString());
+            pro.setCodigo(txtcodigo.getText());
+            ControladorProgramaAcademico ctrl = new ControladorProgramaAcademico();
+            ConectarBD cn = new ConectarBD();
+            
+            try {
+                cn.conectarme();
+                ctrl.setCon(cn.getCon());
+                ctrl.registrar(pro, f);
+                JOptionPane.showMessageDialog(null, "REGISTRADO EXITOSAMENTE");
+                limpiar();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+            
         }
         if (txtNombre.getText().equals("")) {
             
             lNom.setVisible(true);
-           
-        }else  {
-        
+            
+        } else {
+            
             lNom.setVisible(false);
         }
-        if (combo_estado.getSelectedIndex()==0) {
+        if (combo_estado.getSelectedIndex() == 0) {
             
             lCod.setVisible(true);
             
-        }else{
-        
+        } else {
+            
             lCod.setVisible(false);
             
         }
-        if (combFac.getSelectedIndex()==0) {
+        if (combFac.getSelectedIndex() == 0) {
             
             lFac.setVisible(true);
             
-        }else{
-        
+        } else {
+            
             lFac.setVisible(false);
             
         }
+        if (txtcodigo.getText().isEmpty()) {
+            lblcodigo.setVisible(true);
+        } else {
+            lblcodigo.setVisible(false);
+        }
         
-        
+
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
@@ -260,15 +297,15 @@ public class GUI_AgregarProgramaAcademico extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_txtNombreKeyTyped
-
-    public void limpiar(){
-    txtNombre.setText("");
-    combo_estado.setSelectedIndex(0);
-    combFac.setSelectedIndex(0);
+    
+    public void limpiar() {
+        txtNombre.setText("");
+        combo_estado.setSelectedIndex(0);
+        combFac.setSelectedIndex(0);
     }
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
-        GUI_ProgramaAcademico pro=new GUI_ProgramaAcademico();
+        GUI_ProgramaAcademico pro = new GUI_ProgramaAcademico();
         pro.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
@@ -317,6 +354,7 @@ public class GUI_AgregarProgramaAcademico extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> combFac;
     private javax.swing.JComboBox<String> combo_estado;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -324,9 +362,12 @@ public class GUI_AgregarProgramaAcademico extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel lCod;
     private javax.swing.JLabel lFac;
     private javax.swing.JLabel lNom;
+    private javax.swing.JLabel lblcodigo;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtcodigo;
     // End of variables declaration//GEN-END:variables
 }

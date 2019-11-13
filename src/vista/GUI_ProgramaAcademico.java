@@ -39,15 +39,16 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
     }
 
     public void mostrarprogramas() throws SQLException {
-        String matriz[][] = new String[ctrl.listarprogramas().size()][4];
+        String matriz[][] = new String[ctrl.listarprogramas().size()][5];
         for (int i = 0; i < ctrl.listarprogramas().size(); i++) {
             matriz[i][0] = String.valueOf(ctrl.listarprogramas().get(i).getId());
-            matriz[i][1] = ctrl.listarprogramas().get(i).getNombreprograma();
-            matriz[i][2] = String.valueOf(ctrl.listarprogramas().get(i).getIdfacultad().getIdFacultad());
-            matriz[i][3] = ctrl.listarprogramas().get(i).getEstado();
+            matriz[i][1] = ctrl.listarprogramas().get(i).getCodigo();
+            matriz[i][2] = ctrl.listarprogramas().get(i).getNombreprograma();
+            matriz[i][3] = String.valueOf(ctrl.listarprogramas().get(i).getIdfacultad().getIdFacultad());
+            matriz[i][4] = ctrl.listarprogramas().get(i).getEstado();
 
         }
-        tablaprograma.setModel(new javax.swing.table.DefaultTableModel(matriz, new String[]{"Id", "Nombre", "IdFacultad", "Estado"}));
+        tablaprograma.setModel(new javax.swing.table.DefaultTableModel(matriz, new String[]{"id", "Codigo", "Nombre", "IdFacultad", "Estado"}));
     }
 
     /**
@@ -82,6 +83,8 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         lNoRe = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtcodigo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestion de programas academicos");
@@ -89,7 +92,7 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("GESTION DE PROGRAMAS ACADEMICOS");
 
-        jLabel2.setText("Listado de Programas Academicos");
+        jLabel2.setText("Listado de Programas Académicos");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -138,7 +141,7 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
         );
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
-        jLabel3.setText("Busqueda");
+        jLabel3.setText("Búsqueda");
 
         jLabel4.setText("Registros");
 
@@ -156,7 +159,7 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Id", "Nombre", "Facultad", "Estado"
+                "Codigo", "Nombre", "Facultad", "Estado"
             }
         ) {
             Class[] types = new Class [] {
@@ -216,6 +219,10 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
 
         lNoRe.setText("No se encontraron Registros");
 
+        jLabel9.setText("Codigo");
+
+        txtcodigo.setEditable(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -227,7 +234,7 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
-                        .addContainerGap(52, Short.MAX_VALUE))
+                        .addContainerGap(72, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -236,8 +243,14 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(74, 74, 74)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lNoRe))
+                    .addComponent(lNoRe)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtid, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+                            .addComponent(txtcodigo))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addGap(95, 95, 95))
@@ -284,7 +297,11 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
                         .addComponent(btnNuevo)))
                 .addGap(18, 18, 18)
                 .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(238, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(79, 79, 79))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,10 +341,7 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addComponent(jLabel2)))
                 .addContainerGap(320, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,59 +359,65 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        
-        if(combobuscar.getSelectedIndex()==0){
-        JOptionPane.showMessageDialog(null, "Seleccione medoto de busqueda");
-        } else{
-        ControladorProgramaAcademico ctrl = new ControladorProgramaAcademico();
-        ConectarBD cn = new ConectarBD();
-        int valor=combobuscar.getSelectedIndex();
-        String Parametro=txtBuscar.getText();
-        
-        try{
-        cn.conectarme();
-        ctrl.setCon(cn.getCon());
-        ArrayList<ProgramaAcademico> lista= ctrl.buscarprogramas(combobuscar.getSelectedIndex(),txtBuscar.getText().trim());
-        String matriz[][] = new String[lista.size()][4];
-        for (int i = 0; i < lista.size(); i++) {
-            matriz[i][0] = String.valueOf(lista.get(i).getId());
-            matriz[i][1] = lista.get(i).getNombreprograma();
-            matriz[i][2] = String.valueOf(lista.get(i).getIdfacultad().getIdFacultad());
-            matriz[i][3] = lista.get(i).getEstado();
 
+        if (combobuscar.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione medoto de busqueda");
+        } else {
+            ControladorProgramaAcademico ctrl = new ControladorProgramaAcademico();
+            ConectarBD cn = new ConectarBD();
+            int valor = combobuscar.getSelectedIndex();
+            String Parametro = txtBuscar.getText();
+
+            try {
+                cn.conectarme();
+                ctrl.setCon(cn.getCon());
+                ArrayList<ProgramaAcademico> lista = ctrl.buscarprogramas(combobuscar.getSelectedIndex(), txtBuscar.getText().trim());
+                String matriz[][] = new String[lista.size()][5];
+                for (int i = 0; i < lista.size(); i++) {
+                    matriz[i][0] = String.valueOf(lista.get(i).getId());
+                    matriz[i][1] = lista.get(i).getCodigo();
+                    matriz[i][2] = lista.get(i).getNombreprograma();
+                    matriz[i][3] = String.valueOf(lista.get(i).getIdfacultad().getIdFacultad());
+                    matriz[i][4] = lista.get(i).getEstado();
+
+                }
+                tablaprograma.setModel(new javax.swing.table.DefaultTableModel(matriz, new String[]{"Id", "Codigo", "Nombre", "Facultad", "Estado"}));
+
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
         }
-        tablaprograma.setModel(new javax.swing.table.DefaultTableModel(matriz, new String[]{"Id", "Nombre", "Facultad", "Estado"}));
-        
-        }catch(SQLException e){
-            System.out.println(e);
-        }}
     }//GEN-LAST:event_btnBuscarActionPerformed
-    public void habilitar(){
-    btnModificar.setEnabled(true);
-    btnEliminar.setEnabled(true);
+    public void habilitar() {
+        btnModificar.setEnabled(true);
+        btnEliminar.setEnabled(true);
     }
-    public void deshabilitar(){
-    txtnombre.setEnabled(false);
-    txtFacultad.setEnabled(false);
-    txtEstado.setEnabled(false);
-    
-    btnNuevo.setText("Nuevo");
-    btnEliminar.setEnabled(false);
-    btnModificar.setEnabled(false);
-    
+
+    public void deshabilitar() {
+        txtnombre.setEnabled(false);
+        txtFacultad.setEnabled(false);
+        txtEstado.setEnabled(false);
+
+        btnNuevo.setText("Nuevo");
+        btnEliminar.setEnabled(false);
+        btnModificar.setEnabled(false);
+
     }
-    public void limpiartabla(){
-    DefaultTableModel df =(DefaultTableModel) tablaprograma.getModel();
-    int a=tablaprograma.getRowCount()-1;
-        for (int i = a; i >=0; i--) {
-            df.removeRow(df.getRowCount()-1);
+
+    public void limpiartabla() {
+        DefaultTableModel df = (DefaultTableModel) tablaprograma.getModel();
+        int a = tablaprograma.getRowCount() - 1;
+        for (int i = a; i >= 0; i--) {
+            df.removeRow(df.getRowCount() - 1);
         }
     }
-    public void limpiar(){
-    txtid.setText("");
-    txtnombre.setText("");
-    txtFacultad.setText("");
-    txtEstado.setText("");
+
+    public void limpiar() {
+        txtid.setText("");
+        txtnombre.setText("");
+        txtFacultad.setText("");
+        txtEstado.setText("");
+        txtcodigo.setText("");
     }
     private void combobuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combobuscarActionPerformed
         // TODO add your handling code here:
@@ -412,46 +432,48 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-       ProgramaAcademico pro=new ProgramaAcademico();
-       Facultad f=new Facultad();
-       ControladorProgramaAcademico ctrl=new ControladorProgramaAcademico();
-       ConectarBD cn=new ConectarBD();
-       pro.setNombreprograma(txtnombre.getText());
-       f.setIdFacultad(Integer.parseInt(txtFacultad.getText()));
-       pro.setIdfacultad(f);
-       pro.setEstado(txtEstado.getText());
-       pro.setId(Integer.parseInt(txtid.getText()));
-       try{
+        ProgramaAcademico pro = new ProgramaAcademico();
+        Facultad f = new Facultad();
+        ControladorProgramaAcademico ctrl = new ControladorProgramaAcademico();
+        ConectarBD cn = new ConectarBD();
+        pro.setNombreprograma(txtnombre.getText());
+        f.setIdFacultad(Integer.parseInt(txtFacultad.getText()));
+        pro.setIdfacultad(f);
+        pro.setEstado(txtEstado.getText());
+        pro.setId(Integer.parseInt(txtid.getText()));
+        pro.setCodigo(txtcodigo.getText());
+        try {
             cn.conectarme();
             ctrl.setCon(cn.getCon());
             ctrl.modificar(pro, f);
-            
+
             limpiar();
             limpiartabla();
-            deshabilitar();
+
             mostrarprogramas();
-            JOptionPane.showMessageDialog(this, "REGISTRO ACTUALIZADO EXITOSAMENTE: ", "Gestion de programas academicos",JOptionPane.INFORMATION_MESSAGE);   
-        }catch(SQLException e){
-        JOptionPane.showMessageDialog(this, "NO SE REALIZÓ LA OPERACION ACTUALIZAR: "+e.toString(),"Gestion de programas academicos",JOptionPane.INFORMATION_MESSAGE);
-        e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "REGISTRO ACTUALIZADO EXITOSAMENTE: ", "Gestion de programas academicos", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "NO SE REALIZÓ LA OPERACION ACTUALIZAR: " + e.toString(), "Gestion de programas academicos", JOptionPane.INFORMATION_MESSAGE);
+            e.printStackTrace();
         }
 
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void tablaprogramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaprogramaMouseClicked
         // TODO add your handling code here:
-        int fila=tablaprograma.getSelectedRow();
+        int fila = tablaprograma.getSelectedRow();
         txtid.setText(tablaprograma.getValueAt(fila, 0).toString());
-        txtnombre.setText(tablaprograma.getValueAt(fila, 1).toString());
-        txtFacultad.setText(tablaprograma.getValueAt(fila, 2).toString());
-        txtEstado.setText(tablaprograma.getValueAt(fila, 3).toString());
-        
+        txtcodigo.setText(tablaprograma.getValueAt(fila, 1).toString());
+        txtnombre.setText(tablaprograma.getValueAt(fila, 2).toString());
+        txtFacultad.setText(tablaprograma.getValueAt(fila, 3).toString());
+        txtEstado.setText(tablaprograma.getValueAt(fila, 4).toString());
+
     }//GEN-LAST:event_tablaprogramaMouseClicked
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        ProgramaAcademico pro=new ProgramaAcademico();
-        ControladorProgramaAcademico ctrl=new ControladorProgramaAcademico();
-        ConectarBD cn=new ConectarBD();
+        ProgramaAcademico pro = new ProgramaAcademico();
+        ControladorProgramaAcademico ctrl = new ControladorProgramaAcademico();
+        ConectarBD cn = new ConectarBD();
         pro.setId(Integer.parseInt(txtid.getText()));
         try {
             cn.conectarme();
@@ -459,14 +481,14 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
             ctrl.eliminar(pro);
             limpiar();
             limpiartabla();
-            deshabilitar();
-            mostrarprogramas();
-            JOptionPane.showMessageDialog(this, "REGISTRO ELIMINADO EXITOSAMENTE: ", "Gestion de programas academicos",JOptionPane.INFORMATION_MESSAGE);
-        } catch (Exception ex) {
-           JOptionPane.showMessageDialog(this, "NO SE REALIZÓ LA OPERACION ELIMINAR: "+ex.toString(),"Gestion de programas academicos",JOptionPane.INFORMATION_MESSAGE);
-        ex.printStackTrace();
-        }
             
+            mostrarprogramas();
+            JOptionPane.showMessageDialog(this, "REGISTRO ELIMINADO EXITOSAMENTE: ", "Gestion de programas academicos", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "NO SE REALIZÓ LA OPERACION ELIMINAR: " + ex.toString(), "Gestion de programas academicos", JOptionPane.INFORMATION_MESSAGE);
+            ex.printStackTrace();
+        }
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
@@ -521,6 +543,7 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -529,6 +552,7 @@ public class GUI_ProgramaAcademico extends javax.swing.JFrame {
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtFacultad;
+    private javax.swing.JTextField txtcodigo;
     private javax.swing.JTextField txtid;
     private javax.swing.JTextField txtnombre;
     // End of variables declaration//GEN-END:variables

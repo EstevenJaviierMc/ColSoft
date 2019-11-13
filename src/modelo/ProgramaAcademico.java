@@ -6,21 +6,43 @@ public class ProgramaAcademico {
     private String nombreprograma;
     private Facultad idfacultad;
     private String estado;
+    private String codigo;
+    
 
     public ProgramaAcademico(){
     
     }
+    
     public ProgramaAcademico(String nombre,Facultad f,String estado){
         
         this.nombreprograma=nombre;
         this.idfacultad=f;
         this.estado=estado;
     }
+    
+    
 
     public ProgramaAcademico(String toString, String trim, String trim0, String trim1) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public int getIdprogramaacademico() {
+        return idprogramaacademico;
+    }
+
+    public void setIdprogramaacademico(int idprogramaacademico) {
+        this.idprogramaacademico = idprogramaacademico;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    
     public int getId() {
         return idprogramaacademico;
     }
